@@ -40,3 +40,54 @@
 .read-the-docs {
   color: #888;
 }
+
+/* You can add this to your CSS files */
+
+.lambda-container {
+
+}
+
+.fetch-button {
+
+}
+
+    .fetch-button:hover {
+        background-color: #3a67d8;
+    }
+
+    .fetch-button:disabled {
+        background-color: #a0a0a0;
+        cursor: progress;
+    }
+
+.error-message {
+    margin-top: 16px;
+    padding: 12px;
+    background-color: #ffebee;
+    color: #c62828;
+    border-left: 4px solid #ef5350;
+    border-radius: 4px;
+}
+
+.lambda-response {
+    margin-top: 16px;
+    padding: 16px;
+    
+}
+
+    .lambda-response h3 {
+        margin-top: 0;
+        
+    }
+
+.contact-page h1 {
+    margin-bottom: 24px;
+}
+
+.contact-info {
+    margin-bottom: 32px;
+}
+
+.api-section {
+    margin-bottom: 40px;
+}

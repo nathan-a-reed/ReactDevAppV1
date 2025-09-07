@@ -1,10 +1,22 @@
-import { useState } from 'react'
+﻿import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import './App.css';
+
 import HelloLambda from './Components/Api/HelloLambda';
-import NavigationMenu from './Components/NavigationMenu'
+import NavigationMenu from './Components/NavigationMenu';
+import Home from './Components/Pages/Home';
+
+interface Particle {
+    id: number;
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    size: number;
+    opacity: number;
+}
 
 interface ImportMetaEnv {
     readonly VITE_BASIC_API_KEY: string;
@@ -14,42 +26,19 @@ interface ImportMeta {
     readonly env: ImportMetaEnv;
 }
 
-const Home: React.FC = () => {
-    const [count, setCount] = useState(0)
-    return (
-        <div>
-            <div>Home Page</div>
-            <div>
-                <a href="https://vite.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo" />
-                </a>
-            </div>
-            <h1>Vite + React + Scott</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-            </div>
-        </div>
-    );
-};
-
+// Page components
 const About: React.FC = () => <div>About Page</div>;
+
 const Services: React.FC = () => <div>Services Page</div>;
-const Contact: React.FC = () =>
-{
+
+const Contact: React.FC = () => {
     return (
         <div className="contact-page">
             <h1>Contact Page</h1>
-
             <div className="contact-info">
                 <p>This page demonstrates API integration with AWS Lambda.</p>
                 <p>Click the button below to fetch data from the Hello Lambda function.</p>
             </div>
-
             <div className="api-section">
                 <HelloLambda />
             </div>
@@ -57,23 +46,80 @@ const Contact: React.FC = () =>
     );
 };
 
-function App () {
+// Main App
+function App() {
+    const [particles, setParticles] = useState<Particle[]>([]);
+
+    useEffect(() => {
+        const initParticles = () => {
+            const newParticles: Particle[] = [];
+            for (let i = 0; i < 50; i++) {
+                newParticles.push({
+                    id: i,
+                    x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 2000),
+                    y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2 + 1,
+                    opacity: Math.random() * 0.5 + 0.1
+                });
+            }
+            setParticles(newParticles);
+        };
+        initParticles();
+    }, []);
+
+    // Animate particles
+    useEffect(() => {
+        const animateParticles = () => {
+            setParticles(prev => prev.map(particle => {
+                const newX = particle.x + particle.vx;
+                const newY = particle.y + particle.vy;
+                const windowWidth = typeof window !== 'undefined' ? window.innerWidth : 2000;
+                const windowHeight = typeof window !== 'undefined' ? window.innerHeight : 800;
+
+                return {
+                    ...particle,
+                    x: newX > windowWidth ? 0 : newX < 0 ? windowWidth : newX,
+                    y: newY > windowHeight ? 0 : newY < 0 ? windowHeight : newY
+                };
+            }));
+        };
+
+        const interval = setInterval(animateParticles, 50);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
-        <>
-            <Router>
-                <NavigationMenu />
-                <div style={{ padding: '20px' }}>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/about" element={<About />} />
-                        <Route path="/services" element={<Services />} />
-                        <Route path="/contact" element={<Contact />} />
-                    </Routes>
-                </div>
-            </Router>
-        </>
-    )
+        <Router>
+            <NavigationMenu />
+
+            <div className="global-particles-container">
+                {particles.map((particle: Particle) => (
+                    <div
+                        key={particle.id}
+                        className="global-particle"
+                        style={{
+                            left: `${particle.x}px`,
+                            top: `${particle.y}px`,
+                            width: `${particle.size}px`,
+                            height: `${particle.size}px`,
+                            opacity: particle.opacity,
+                        }}
+                    />
+                ))}
+            </div>
+
+            <div style={{ padding: '20px' }}>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/contact" element={<Contact />} />
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
-export default App
+export default App;

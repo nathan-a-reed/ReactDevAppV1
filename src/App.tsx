@@ -1,7 +1,5 @@
 ﻿import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
 
 import HelloLambda from './Components/Api/HelloLambda';
@@ -18,13 +16,13 @@ interface Particle {
     opacity: number;
 }
 
-interface ImportMetaEnv {
-    readonly VITE_BASIC_API_KEY: string;
-}
+//interface ImportMetaEnv {
+//    readonly VITE_BASIC_API_KEY: string;
+//}
 
-interface ImportMeta {
-    readonly env: ImportMetaEnv;
-}
+//interface ImportMeta {
+//    readonly env: ImportMetaEnv;
+//}
 
 // Page components
 const About: React.FC = () => <div>About Page</div>;

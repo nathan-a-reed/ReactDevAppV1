@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    ChevronDown,
+    //ChevronDown,
     Code,
     Database,
     Cloud,
@@ -41,7 +41,7 @@ interface Metric {
 
 const PortfolioHomepage: React.FC = () => {
     const [currentSkill, setCurrentSkill] = useState<number>(0);
-    const [mousePosition, setMousePosition] = useState<MousePosition>({ x: 0, y: 0 });
+    const [_mousePosition, setMousePosition] = useState<MousePosition>({ x: 0, y: 0 });
 
     const skills: string[] = [
         'Full Stack Development',

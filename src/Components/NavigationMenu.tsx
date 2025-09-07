@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
                     onClick={handleLogoClick}
                     className="logo-link"
                 >
-                    MySite
+                    DevSite
                 </Link>
             </div>
             <ul style={styles.navList}>

@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
             setActiveItem('home');
         } else {
             const currentPath = path.substring(1); // Remove leading slash
-            if (['about', 'services', 'contact'].includes(currentPath)) {
+            if (['demos', 'projects'].includes(currentPath)) {
                 setActiveItem(currentPath);
             }
         }
@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
                 </Link>
             </div>
             <ul style={styles.navList}>
-                {['home', 'about', 'services', 'contact'].map((item) => (
+                {['home', /*'demos',*/ 'projects'].map((item) => (
                     <li key={item} style={styles.navListItem}>
                         <Link
                             to={item === 'home' ? '/' : `/${item}`}

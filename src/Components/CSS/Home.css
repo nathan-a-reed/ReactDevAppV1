@@ -80,7 +80,6 @@
     text-align: center;
     z-index: 10;
     max-width: 64rem;
-    margin: 0 auto;
     width: 100%;
 }
 
@@ -89,7 +88,6 @@
 }
 
 .hero-title {
-    font-size: 4rem;
     font-weight: 700;
     margin-bottom: 1rem;
     background: linear-gradient(to right, #60a5fa, #a855f7, #22d3ee);
@@ -100,7 +98,7 @@
     text-align: center;
 }
 
-@media (min-width: 768px) {
+@media {
     .hero-title {
         font-size: 6rem;
     }

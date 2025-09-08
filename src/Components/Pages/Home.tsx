@@ -15,10 +15,12 @@ import {
     MapPin,
     Download,
     ExternalLink,
-    Server,
+    //Server,
     Brain,
-    Shield,
-    Layers
+    //Shield,
+    Layers,
+    Monitor,
+    Settings
 } from 'lucide-react';
 import '../CSS/Home.css'
 
@@ -52,14 +54,19 @@ const PortfolioHomepage: React.FC = () => {
     ];
 
     const techStack: TechStack[] = [
-        { name: 'React', icon: <Code className="w-5 h-5" />, color: 'text-blue-400' },
         { name: 'AWS', icon: <Cloud className="w-5 h-5" />, color: 'text-orange-400' },
-        { name: 'TypeScript', icon: <Terminal className="w-5 h-5" />, color: 'text-blue-300' },
-        { name: 'Python', icon: <Cpu className="w-5 h-5" />, color: 'text-green-400' },
-        { name: 'C#/.NET', icon: <Server className="w-5 h-5" />, color: 'text-purple-400' },
+        { name: 'React', icon: <Code className="w-5 h-5" />, color: 'text-blue-400' },
+        { name: 'Rust', icon: <Code className="w-5 h-5" />, color: 'text-red-400' },
+        { name: 'TypeScript', icon: <Code className="w-5 h-5" />, color: 'text-blue-300' },
+        { name: 'Python', icon: <Code className="w-5 h-5" />, color: 'text-green-400' },
+        { name: 'C#/.NET', icon: <Code className="w-5 h-5" />, color: 'text-purple-400' },
         { name: 'SQL', icon: <Database className="w-5 h-5" />, color: 'text-yellow-400' },
         { name: 'Azure OpenAI', icon: <Brain className="w-5 h-5" />, color: 'text-emerald-400' },
-        { name: 'Docker', icon: <Layers className="w-5 h-5" />, color: 'text-cyan-400' }
+        { name: 'Docker', icon: <Layers className="w-5 h-5" />, color: 'text-cyan-400' },
+        { name: 'PowerShell', icon: <Terminal className="w-5 h-5" />, color: 'text-blue-400' },
+        { name: 'Batch', icon: <Terminal className="w-5 h-5" />, color: 'text-white-400' },
+        { name: 'Bash', icon: <Terminal className="w-5 h-5" />, color: 'text-orange-400' },
+        { name: 'GitHub', icon: <Cloud className="w-5 h-5" />, color: 'text-gray-400' },
     ];
 
     const metrics: Metric[] = [
@@ -68,6 +75,19 @@ const PortfolioHomepage: React.FC = () => {
         { value: '50+', label: 'Concurrent Users', icon: <Cpu className="w-6 h-6" /> },
         { value: 'Over 15,000', label: 'Recipients', icon: <Phone className="w-6 h-6" /> }
     ];
+
+    // Navigation function for projects
+    const navigateToProject = (projectId: string) => {
+        // You can replace this with your preferred routing method
+        // For example, if using React Router: navigate(`/projects/${projectId}`);
+        // For now, using a simple URL approach:
+        window.location.href = `/projects?selected=${projectId}`;
+    };
+
+    // Navigate to projects page
+    const navigateToProjectsPage = () => {
+        window.location.href = '/projects';
+    };
 
     // Rotate skills every 3 seconds
     useEffect(() => {
@@ -248,7 +268,7 @@ const PortfolioHomepage: React.FC = () => {
                             <div className="info-card">
                                 <h4 className="info-card-title">Core Technologies</h4>
                                 <div className="skills-grid">
-                                    {['AWS', 'Azure', 'C#/.NET', 'Python', 'React', 'TypeScript', 'SQL', 'Docker'].map((skill: string) => (
+                                    {['AWS', 'Azure', 'Rust', 'PowerShell', 'C#/.NET', 'Python', 'React', 'TypeScript', 'SQL', 'Docker'].map((skill: string) => (
                                         <div key={skill} className="skill-tag">
                                             {skill}
                                         </div>
@@ -298,9 +318,9 @@ const PortfolioHomepage: React.FC = () => {
                             Explore my latest work showcasing full-stack development, AI integration, and cloud architecture.
                             These are projects that I have worked on in my free time.
                         </p>
+                        <h2>Coming Soon...</h2>
                     </div>
                 </div>
-
 
                 <div className="section-container">
                     <div className="section-header">
@@ -309,12 +329,24 @@ const PortfolioHomepage: React.FC = () => {
                         </h3>
                         <p className="section-description">
                             Here are some brief examples of projects that I have worked on professionally.
+                            Click on any project to view detailed information.
                         </p>
                     </div>
 
                     <div className="projects-grid">
-                        {/* Project 1 */}
-                        <div className="project-card">
+                        {/* Project 1 - AWS Serverless AI Assistant */}
+                        <div
+                            className="project-card clickable"
+                            onClick={() => navigateToProject('serverless-ai-assistant')}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    navigateToProject('serverless-ai-assistant');
+                                }
+                            }}
+                        >
                             <div className="project-header">
                                 <Cloud className="w-8 h-8 text-orange-400" />
                                 <ExternalLink className="project-link-icon" />
@@ -328,14 +360,25 @@ const PortfolioHomepage: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Project 2 */}
-                        <div className="project-card">
+                        {/* Project 2 - AI Integration */}
+                        <div
+                            className="project-card clickable"
+                            onClick={() => navigateToProject('ai-data-processing')}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    navigateToProject('ai-data-processing');
+                                }
+                            }}
+                        >
                             <div className="project-header">
                                 <Brain className="w-8 h-8 text-emerald-400" />
                                 <ExternalLink className="project-link-icon" />
                             </div>
                             <h4 className="project-title">AI Integration and Data Processing</h4>
-                            <p className="project-description">Azure OpenAI integration for automated data analysis and legacy system automation analysis.</p>
+                            <p className="project-description">Azure OpenAI integration for automated data analysis and legacy system automation.</p>
                             <div className="project-tags">
                                 <span className="project-tag openai">OpenAI</span>
                                 <span className="project-tag azure">Azure</span>
@@ -343,10 +386,21 @@ const PortfolioHomepage: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Project 3 */}
-                        <div className="project-card">
+                        {/* Project 3 - AWS Connect Integration */}
+                        <div
+                            className="project-card clickable"
+                            onClick={() => navigateToProject('aws-connect-integration')}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    navigateToProject('aws-connect-integration');
+                                }
+                            }}
+                        >
                             <div className="project-header">
-                                <Shield className="w-8 h-8 text-cyan-400" />
+                                <Phone className="w-8 h-8 text-cyan-400" />
                                 <ExternalLink className="project-link-icon" />
                             </div>
                             <h4 className="project-title">AWS Connect Data Integration</h4>
@@ -358,14 +412,25 @@ const PortfolioHomepage: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Project 4 */}
-                        <div className="project-card">
+                        {/* Project 4 - Call Center Dashboard */}
+                        <div
+                            className="project-card clickable"
+                            onClick={() => navigateToProject('call-center-dashboard')}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    navigateToProject('call-center-dashboard');
+                                }
+                            }}
+                        >
                             <div className="project-header">
-                                <Shield className="w-8 h-8 text-cyan-400" />
+                                <Monitor className="w-8 h-8 text-purple-400" />
                                 <ExternalLink className="project-link-icon" />
                             </div>
                             <h4 className="project-title">Call Center Dashboard</h4>
-                            <p className="project-description">Dashboard built in Blazor providing real time data for our call center.</p>
+                            <p className="project-description">Dashboard built in Blazor providing real-time data for call center operations.</p>
                             <div className="project-tags">
                                 <span className="project-tag connect">AWS Connect</span>
                                 <span className="project-tag lambda">Lambda</span>
@@ -373,23 +438,40 @@ const PortfolioHomepage: React.FC = () => {
                                 <span className="project-tag analytics">Analytics</span>
                             </div>
                         </div>
-                        
-                        {/* Project 4 */}
-                        <div className="project-card">
+
+                        {/* Project 5 - Internal Application */}
+                        <div
+                            className="project-card clickable"
+                            onClick={() => navigateToProject('internal-application')}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    navigateToProject('internal-application');
+                                }
+                            }}
+                        >
                             <div className="project-header">
-                                <Shield className="w-8 h-8 text-cyan-400" />
+                                <Settings className="w-8 h-8 text-indigo-400" />
                                 <ExternalLink className="project-link-icon" />
                             </div>
                             <h4 className="project-title">Full-Stack Internal Application</h4>
-                            <p className="project-description">A full-stack application built using Blazor that provides numerous business solutions specific to the companies needs.</p>
+                            <p className="project-description">A full-stack application built using Blazor providing numerous business solutions.</p>
                             <div className="project-tags">
                                 <span className="project-tag analytics">Analytics</span>
+                                <span className="project-tag blazor">Blazor</span>
+                                <span className="project-tag fullstack">Full-stack</span>
                             </div>
                         </div>
                     </div>
 
                     <div className="projects-cta">
-                        <button className="cta-button projects-btn" type="button">
+                        <button
+                            className="cta-button projects-btn"
+                            type="button"
+                            onClick={navigateToProjectsPage}
+                        >
                             <span>View All Projects</span>
                             <ArrowRight className="w-5 h-5" />
                         </button>
@@ -433,7 +515,6 @@ const PortfolioHomepage: React.FC = () => {
                             <p className="contact-card-text">Rockledge, FL</p>
                         </div>
                     </div>
-
 
                     {/*<button className="cta-button contact-btn" type="button">*/}
                     {/*    Start a Conversation*/}

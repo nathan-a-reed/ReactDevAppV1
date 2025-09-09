@@ -2,11 +2,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
-//import HelloLambda from './Components/Api/HelloLambda';
 import NavigationMenu from './Components/NavigationMenu';
 import Home from './Components/Pages/Home';
 import Projects from './Components/Pages/Projects';
 import Demos from './Components/Pages/Demos';
+import VoiceChat from './Components/Api/VoiceChat';
 
 interface Particle {
     id: number;
@@ -18,28 +18,7 @@ interface Particle {
     opacity: number;
 }
 
-//interface ImportMetaEnv {
-//    readonly VITE_BASIC_API_KEY: string;
-//}
-
-//interface ImportMeta {
-//    readonly env: ImportMetaEnv;
-//}
-
-//const Contact: React.FC = () => {
-//    return (
-//        <div className="contact-page">
-//            <h1>Contact Page</h1>
-//            <div className="contact-info">
-//                <p>This page demonstrates API integration with AWS Lambda.</p>
-//                <p>Click the button below to fetch data from the Hello Lambda function.</p>
-//            </div>
-//            <div className="api-section">
-//                <HelloLambda />
-//            </div>
-//        </div>
-//    );
-//};
+const mainAgentId: string = import.meta.env.VITE_MAIN_AGENT_ID;
 
 // Main App
 function App() {
@@ -110,9 +89,10 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/demos" element={<Demos />} />
                     <Route path="/projects" element={<Projects />} />
-                    {/*<Route path="/contact" element={<Contact />} />*/}
                 </Routes>
             </div>
+
+            <VoiceChat agentId={mainAgentId} />
         </Router>
     );
 }
